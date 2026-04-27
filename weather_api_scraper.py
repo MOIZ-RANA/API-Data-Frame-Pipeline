@@ -1,16 +1,18 @@
-import requests
-import pandas as pd
+import requests 
+import pandas as pd 
 
-api_key = 'bc6dbd7a60a0915ffb4c055fc35dfecc'
- 
-user_input = input('Enter city: ')
+api_key  = "bc6dbd7a60a0915ffb4c055fc35dfecc"
 
-weather_data = requests.get(
-    f"https://api.openweathermap.org/data/2.5/weather?q={user_input}&units=imperial&APPID={api_key}")
+a  = input("Enter city: ")
+r = requests.get(f"https://api.openweathermap.org/data/2.5/weather?q={a}&appid={api_key}&units=metric")
 
-# print(weather_data.status_code) # checking the status
-weather = weather_data
-print(weather_data.json())
-df = pd.DataFrame(weather)
-print(df)
+if r.status_code == 200:
+    api_data = r.json()
+    
+    df = pd.json_normalize(api_data)
+    print(df[["name", "main.temp", "main.humidity"]])
+else:
+    print("city not found")
+
 # print(df.shape)
+# print(df.columns)
