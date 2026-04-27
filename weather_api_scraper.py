@@ -13,4 +13,4 @@ weather = weather_data
 print(weather_data.json())
 df = pd.DataFrame(weather)
 print(df)
-print(df.shape)
+# print(df.shape)
